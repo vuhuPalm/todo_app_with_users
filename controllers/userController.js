@@ -28,7 +28,11 @@ module.exports.register = async function(req, res){
 }
 
 module.exports.renderLogin = function(req, res) {
-    res.render('users/login');
+    let error = null
+    if (req.session.messages && req.session.messages.length>0){
+        error = req.session.messages[0];
+    }
+    res.render('users/login', {error});
 }
 
 module.exports.authenticate = passport.authenticate('local', {
